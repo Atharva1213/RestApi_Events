@@ -1,0 +1,9 @@
+POST http://localhost:9091/eventPost  
+Content-Type:application/json
+
+{
+    "id":1,
+    "name":"book A Teacher",
+    "price":2903,
+    "author":"Atharva lende"
+}

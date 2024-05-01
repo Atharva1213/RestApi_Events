@@ -1,0 +1,4 @@
+# .gitignore
+
+# Ignore .env files containing sensitive information
+*.env
