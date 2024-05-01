@@ -16,3 +16,6 @@ CREATE TABLE events (
 
 INSERT INTO events (name, price, author) VALUES (?,?,?);
 
+##delete quert for events table 
+
+
