@@ -1,0 +1,9 @@
+POST http://localhost:9091/events 
+Content-Type:application/json
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbmRlYXRoYXJ2YTExMEBnbWFpbC5jb20iLCJleHAiOjE3MTQ4MjY5NzMsImlkIjoyMH0.xjMrz3LYNu1ILIr-RNdbgI1Um3z3taVv-e_PfuaLdDQ
+
+{
+    "name":"Vinay lende 13",
+    "description":"I am Great.",
+    "price":30
+}

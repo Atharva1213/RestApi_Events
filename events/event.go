@@ -4,25 +4,23 @@ import (
 	"Server_main/database"
 	"errors"
 )
-
-var Events = []Event{}
-
 type Event struct {
-	ID     int64  `json:"id" binding:"required"`
+	ID     int64  `json:"id"`
 	Name   string `json:"name" binding:"required"`
-	Price  int64  `json:"price" binding:"required"`
-	Author string `json:"author" binding:"required"`
+	Description  string  `json:"description" binding:"required"`
+	UserId int64 `json:"userid"`
+	Price int64 `json:"price" binding:"required"`
+	TotalCount int64 `json:"total_count"`
 }
 
-func (event Event) Save() error {
-	// Prepare the SQL query
-	query := `INSERT INTO events (name, price, author) VALUES (?, ?, ?);`
+func (event Event) Save(user_id int64) error {
+	query := `INSERT INTO events (name,description,user_id,price) VALUES (?,?,?,?);`
 	stm, err := database.DB.Prepare(query)
 	if err != nil {
 		return err
 	}
 	defer stm.Close()
-	_, err = stm.Exec(event.Name, event.Price, event.Author)
+	_, err = stm.Exec(event.Name, event.Description,user_id,event.Price)
 	if err != nil {
 		return err
 	}
@@ -30,7 +28,7 @@ func (event Event) Save() error {
 }
 func GetAllEvents() ([]Event, error) {
 	// Prepare the SQL query
-	query := `SELECT * FROM events`
+	query := `SELECT * FROM events;`
 	result, err := database.DB.Query(query)
 	if err != nil {
 		return nil, err
@@ -40,7 +38,7 @@ func GetAllEvents() ([]Event, error) {
 
 	for result.Next() {
 		var event Event
-		err := result.Scan(&event.ID, &event.Name, &event.Price, &event.Author)
+		err := result.Scan(&event.ID, &event.Name, &event.Description, &event.UserId,&event.Price,&event.TotalCount)
 		if err != nil {
 			return nil, err
 		}
@@ -64,7 +62,7 @@ func GetEventByID(id int64) (Event, error) {
 	var event Event
 
 	if result.Next() {
-		err := result.Scan(&event.ID, &event.Name, &event.Price, &event.Author)
+		err := result.Scan(&event.ID, &event.Name, &event.Description, &event.UserId,&event.Price,&event.TotalCount)
 		if err != nil {
 			return Event{}, err
 		}
@@ -74,11 +72,23 @@ func GetEventByID(id int64) (Event, error) {
 
 	return event, nil
 }
-
 func DeleteEvent(id int64) error {
 	// Prepare the SQL query
 	query := "DELETE FROM events WHERE id = ?"
 	_, err := database.DB.Exec(query, id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (event Event) UpdatedEvent() error {
+	query := `UPDATE events set name = ? ,description = ? ,user_id = ?, price = ? WHERE id = ?;`
+	stm, err := database.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer stm.Close()
+	_, err = stm.Exec(event.Name, event.Description, event.UserId,event.Price,event.ID)
 	if err != nil {
 		return err
 	}

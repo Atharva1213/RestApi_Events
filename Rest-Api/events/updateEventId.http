@@ -1,0 +1,10 @@
+PUT http://localhost:9091/eventId 
+Content-Type:application/json
+
+{
+    "id":1,
+    "name":"Atharva lende (Patil).",
+    "description":"I am god.",
+    "userid":1,
+    "price":5600
+}

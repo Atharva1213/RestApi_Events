@@ -1,0 +1,7 @@
+DELETE  http://localhost:9091/eventId  
+Content-Type:application/json
+Authorization:eyJhbGciIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImxlbmRlYXRoYXJ2YTExMEBnbWFpbC5jb20iLCJleHAiOjE3MTQ4MjY5NzMsImlkIjoyMH0.xjMrz3LYNu1ILIr-RNdbgI1Um3z3taVv-e_PfuaLdDQ 
+
+{
+    "id":9
+}
