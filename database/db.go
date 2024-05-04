@@ -58,12 +58,25 @@ func createTable() {
         total_count INT DEFAULT 0, -- 'DEFAULT' instead of 'default'
         FOREIGN KEY (user_id) REFERENCES users(id) -- 'users' instead of 'user'
     );`
-    
+
     _, err = DB.Exec(eventTable) 
     if err != nil {
         panic("Event Table Is Not Created: " + err.Error())
     }
 
+    registerTable :=`CREATE TABLE IF NOT EXISTS register (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        name VARCHAR(255) NOT NULL,
+        event_id INT,
+        email VARCHAR(255) NOT NULL,
+        phone VARCHAR(255) NOT NULL,
+        FOREIGN KEY (event_id) REFERENCES events(id) 
+    );`
     
+    _, err = DB.Exec(registerTable)
+    if err != nil {
+        panic("Register Table Is Not Created: " + err.Error())
+    }
+ 
     log.Println("Events Table Is Created")
 }

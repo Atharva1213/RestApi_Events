@@ -95,3 +95,18 @@ func (event Event) UpdatedEvent() error {
 	return nil
 }
 
+func UpdatedEventCount(id int64) error {
+	query := `UPDATE events SET total_count = total_count + 1 WHERE id = ?;`
+	stmt, err := database.DB.Prepare(query)
+	if err != nil {
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.Exec(id)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
