@@ -15,7 +15,7 @@ This project is a RESTful API built with Go language using the Mux router and My
 
 ## Installation
 1. Clone the repository:
-  git clone [https://github.com/your-username/event-api.git](https://github.com/Atharva1213/RestApi_Events.git)
+  git clone https://github.com/Atharva1213/RestApi_Events.git
 2. Navigate into the project directory:
   cd event-api
 3. Install dependencies (if any):
